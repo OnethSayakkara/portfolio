@@ -4,6 +4,7 @@ import AboutMemock from './components/AboutMemock'
 import Banner from './components/Banner'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import RecentProjects from './components/RecentProjects'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
      <Hero/>
      <Banner/>
      <AboutMemock/>
+     <RecentProjects/>
      
     </div>
   )
