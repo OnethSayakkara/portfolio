@@ -4,6 +4,8 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import { TbHexagonLetterOFilled } from "react-icons/tb";
 
 
+
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,9 +16,8 @@ function Header() {
   return (
     <div className="flex items-center justify-between py-5 px-4 sm:px-6   w-full">
       {/* Logo */}
-      <div className="text-white text-5xl font-bold flex">
-        <TbHexagonLetterOFilled/>
-        <p className='text-4xl'>ONETH</p>
+      <div className="text-white text-xl font-bold flex w-28">
+        <img src="/public/Oneth.svg" alt='logo' />
       </div>
 
       {/* Hamburger Icon for Mobile */}
