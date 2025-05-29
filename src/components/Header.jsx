@@ -17,7 +17,7 @@ function Header() {
     <div className="flex items-center justify-between py-5 px-4 sm:px-6   w-full">
       {/* Logo */}
       <div className="text-white text-xl font-bold flex w-28">
-        <img src="/public/Oneth.svg" alt='logo' />
+        <img src="/Oneth.svg" alt='logo' />
       </div>
 
       {/* Hamburger Icon for Mobile */}
