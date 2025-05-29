@@ -9,8 +9,10 @@ export default {
     extend: {
       screens: {
       phone: "570px",
+      xmedium: "860px",
       medium: "990px",
        large: "1025px",
+       xlarge: "1400px",
        
     },
       fontFamily: {
