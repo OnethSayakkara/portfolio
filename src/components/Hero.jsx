@@ -1,8 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import hbanner from '../assets/images/home-banner.png';
+import * as THREE from 'three'; // Added import for THREE
 import { FaLinkedinIn } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { Canvas } from '@react-three/fiber';
+import { useGLTF, useAnimations, OrbitControls, Environment } from '@react-three/drei';
+
+function Model() {
+  const { scene, animations } = useGLTF('/robot_playground.glb');
+  const { actions } = useAnimations(animations, scene);
+
+  useEffect(() => {
+    if (actions && Object.keys(actions).length > 0) {
+      // Play the first animation (or specify a specific animation name if known)
+      const firstAction = Object.values(actions)[0];
+      firstAction.reset().fadeIn(0.5).play();
+      
+      // Loop all animations
+      Object.values(actions).forEach((action) => {
+        action.setLoop(THREE.LoopRepeat, Infinity);
+      });
+
+      return () => {
+        // Clean up: Stop animations when component unmounts
+        Object.values(actions).forEach((action) => {
+          action.fadeOut(0.5).stop();
+        });
+      };
+    }
+  }, [actions]);
+
+  return <primitive object={scene} scale={[1, 1, 1]} />;
+}
 
 function Hero() {
   const words = ['VELOPER', 'SIGNER'];
@@ -35,9 +64,9 @@ function Hero() {
   }, [charIndex, isDeleting, currentWordIndex, words]);
 
   return (
-    <div className="w-full  large:h-[677px] flex items-center justify-center">
+    <div className="w-full large:h-[677px] flex items-center justify-center">
       <div className="flex flex-col medium:flex-row justify-center items-center w-full px-4 medium:px-9 py-8 medium:-mt-10">
-        <div className="space-y-4 sm:px-10 ">
+        <div className="space-y-4 sm:px-10">
           <h2
             className="font-primary text-white text-base px-3 py-1 w-fit rounded-md"
             style={{ backgroundColor: 'oklch(0.33 0.09 251.55)' }}
@@ -87,12 +116,14 @@ function Hero() {
             </div>
           </div>
         </div>
-        <div className="mt-10 phone:w-[546px] phone:h-[581px] w-[375px] h-[373px]">
-          <img
-            className="object-contain"
-            src={hbanner}
-            alt="Home banner"
-          />
+        <div className="mt-[380px] phone:w-[650px] phone:h-[800px] w-[375px] h-[373px]">
+          <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 5]} intensity={1} />
+            <Model />
+            <OrbitControls enablePan={false} enableZoom={false} />
+            <Environment preset="studio" />
+          </Canvas>
         </div>
       </div>
     </div>
